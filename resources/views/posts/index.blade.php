@@ -24,11 +24,11 @@
                 @foreach ($posts as $post)
                     <tr>
                         <th scope="row">{{ $post->id }}</th>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ substr($post->content, 10).'...' }}</td>
+                        <td>{{ substr($post->title, 1, 40).'...' }}</td>
+                        <td>{{ substr($post->content, 1, 60).'...' }}</td>
                         <td>{{ $post->category->name }}</td>
                         <td>
-                            <button class="btn btn-outline-info">Show</button>
+                            <a href="{{ url('/posts/'.$post->id) }}" class="btn btn-outline-info">Show</a>
                             <button class="btn btn-outline-warning">Edit</button>
                             <button class="btn btn-outline-danger">Delete</button>
                         </td>
