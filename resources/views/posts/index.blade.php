@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <a href="{{ Route('posts.create') }}" class="btn btn-primary">New Post</a>
     <h2 class="py-4">Posts List</h2>
     <table class="table">
@@ -23,7 +28,11 @@
                     <td>
                         <a href="{{ route('posts.show', $post->id) }}" class="btn btn-outline-info">Show</a>
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-outline-warning">Edit</a>
-                        <a class="btn btn-outline-danger">Delete</a>
+                        <form action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Delete Post ?')" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
